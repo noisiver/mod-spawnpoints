@@ -10,7 +10,7 @@ CREATE TABLE `mod_spawnpoints` (
     `comment` CHAR(50) NULL DEFAULT '',
     PRIMARY KEY (`team_id`)
 )
-COMMENT='Spawn points for Assistant'
+COMMENT='Spawn points'
 COLLATE='utf8mb4_general_ci';
 
 INSERT INTO `mod_spawnpoints` (`team_id`, `map_id`, `area_id`, `pos_x`, `pos_y`, `pos_z`, `orientation`, `comment`) VALUES (0, 0, 1519, -8830.44, 626.666, 93.9829, 0.682076, 'Alliance - Stormwind City');
