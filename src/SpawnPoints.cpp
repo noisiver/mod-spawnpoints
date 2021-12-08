@@ -20,7 +20,7 @@ class SpawnPointData : public WorldScript
 
         void OnStartup() override
         {
-            QueryResult result = WorldDatabase.Query("SELECT `team_id`, `map_id`, `pos_x`, `pos_y`, `pos_z`, `orientation` FROM `mod_spawn_points`");
+            QueryResult result = WorldDatabase.Query("SELECT `team_id`, `map_id`, `pos_x`, `pos_y`, `pos_z`, `orientation` FROM `mod_spawnpoints`");
 
             if (!result)
                 return;
