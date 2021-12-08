@@ -1,1 +1,4 @@
 #!/usr/bin/env bash
+DB_WORLD_CUSTOM_PATHS+=(
+    $MOD_SPAWNPOINTS_ROOT"/sql/world/base/"
+)
