@@ -38,10 +38,10 @@ class SpawnPointData : public WorldScript
 
                     spawnPoints.push_back(SpawnPoints());
                     spawnPoints[TeamId].MapId = fields[1].GetUInt32();
-                    spawnPoints[TeamId].X = fields[2].GetFloat();
-                    spawnPoints[TeamId].Y = fields[3].GetFloat();
-                    spawnPoints[TeamId].Z = fields[4].GetFloat();
-                    spawnPoints[TeamId].O = fields[5].GetFloat();
+                    spawnPoints[TeamId].X     = fields[2].GetFloat();
+                    spawnPoints[TeamId].Y     = fields[3].GetFloat();
+                    spawnPoints[TeamId].Z     = fields[4].GetFloat();
+                    spawnPoints[TeamId].O     = fields[5].GetFloat();
 
                     i++;
                 } while (result->NextRow());
@@ -61,12 +61,11 @@ class SetSpawnPoint : public PlayerScript
             if (player->getClass() == CLASS_DEATH_KNIGHT)
                 return;
 
-            uint32 mapId = spawnPoints[player->GetTeamId()].MapId;
-            float x = spawnPoints[player->GetTeamId()].X;
-            float y = spawnPoints[player->GetTeamId()].Y;
-            float z = spawnPoints[player->GetTeamId()].Z;
-            float orientation = spawnPoints[player->GetTeamId()].O;
-
+            uint32 mapId                  = spawnPoints[player->GetTeamId()].MapId;
+            float x                       = spawnPoints[player->GetTeamId()].X;
+            float y                       = spawnPoints[player->GetTeamId()].Y;
+            float z                       = spawnPoints[player->GetTeamId()].Z;
+            float orientation             = spawnPoints[player->GetTeamId()].O;
             const WorldLocation &location = WorldLocation(mapId, x, y, z, orientation);
 
             player->Relocate(&location);
