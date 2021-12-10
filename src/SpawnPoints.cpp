@@ -20,11 +20,16 @@ class SpawnPointData : public WorldScript
 
         void OnStartup() override
         {
+            LOG_INFO("server.loading", "Loading spawn points...");
             QueryResult result = WorldDatabase.Query("SELECT `team_id`, `map_id`, `pos_x`, `pos_y`, `pos_z`, `orientation` FROM `mod_spawnpoints`");
 
             if (!result)
+            {
+                LOG_INFO("server.loading", ">> Loaded 0 spawn points. DB table `mod_spawnpoints` is empty.");
                 return;
+            }
 
+            int i = 0;
             do
             {
                 Field* fields = result->Fetch();
@@ -36,7 +41,11 @@ class SpawnPointData : public WorldScript
                 spawnPoints[TeamId].Y = fields[3].GetFloat();
                 spawnPoints[TeamId].Z = fields[4].GetFloat();
                 spawnPoints[TeamId].O = fields[5].GetFloat();
+
+                i++;
             } while (result->NextRow());
+
+            LOG_INFO("server.loading", ">> Loaded %i spawn points", i);
         }
 };
 
