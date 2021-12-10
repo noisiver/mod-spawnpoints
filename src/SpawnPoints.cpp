@@ -27,6 +27,7 @@ class SpawnPointData : public WorldScript
                 if (!result)
                 {
                     LOG_INFO("server.loading", ">> Loaded 0 spawn points. DB table `mod_spawnpoints` is empty.");
+                    LOG_INFO("server.loading", " ");
                     return;
                 }
 
@@ -47,6 +48,7 @@ class SpawnPointData : public WorldScript
                 } while (result->NextRow());
 
                 LOG_INFO("server.loading", ">> Loaded %i spawn points", i);
+                LOG_INFO("server.loading", " ");
             }
         }
 };
