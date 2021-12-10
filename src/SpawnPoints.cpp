@@ -59,6 +59,8 @@ class SetSpawnPoint : public PlayerScript
             const WorldLocation &location = WorldLocation(mapId, x, y, z, orientation);
 
             player->Relocate(&location);
+            player->ResetMap();
+            player->SetMap(sMapMgr->CreateMap(mapId, player));
             player->SaveToDB(false, false);
         }
 };
