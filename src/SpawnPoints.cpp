@@ -13,10 +13,34 @@ struct SpawnPoints
 
 std::vector<SpawnPoints> spawnPoints;
 
-class SpawnPointData : public WorldScript
+class SpawnPointsPlayer : public PlayerScript
 {
     public:
-        SpawnPointData() : WorldScript("SpawnPointData") { }
+        SpawnPointsPlayer() : PlayerScript("SpawnPointsPlayer") {}
+
+        void OnCreate(Player* player) override
+        {
+            if (player->getClass() == CLASS_DEATH_KNIGHT)
+                return;
+
+            uint32 mapId                  = spawnPoints[player->GetTeamId()].MapId;
+            float x                       = spawnPoints[player->GetTeamId()].X;
+            float y                       = spawnPoints[player->GetTeamId()].Y;
+            float z                       = spawnPoints[player->GetTeamId()].Z;
+            float orientation             = spawnPoints[player->GetTeamId()].O;
+            const WorldLocation &location = WorldLocation(mapId, x, y, z, orientation);
+
+            player->Relocate(&location);
+            player->ResetMap();
+            player->SetMap(sMapMgr->CreateMap(mapId, player));
+            player->SaveToDB(false, false);
+        }
+};
+
+class SpawnPointWorld : public WorldScript
+{
+    public:
+        SpawnPointWorld() : WorldScript("SpawnPointWorld") { }
 
         void OnStartup() override
         {
@@ -51,32 +75,8 @@ class SpawnPointData : public WorldScript
         }
 };
 
-class SetSpawnPoint : public PlayerScript
-{
-    public:
-        SetSpawnPoint() : PlayerScript("SetSpawnPoint") {}
-
-        void OnCreate(Player* player) override
-        {
-            if (player->getClass() == CLASS_DEATH_KNIGHT)
-                return;
-
-            uint32 mapId                  = spawnPoints[player->GetTeamId()].MapId;
-            float x                       = spawnPoints[player->GetTeamId()].X;
-            float y                       = spawnPoints[player->GetTeamId()].Y;
-            float z                       = spawnPoints[player->GetTeamId()].Z;
-            float orientation             = spawnPoints[player->GetTeamId()].O;
-            const WorldLocation &location = WorldLocation(mapId, x, y, z, orientation);
-
-            player->Relocate(&location);
-            player->ResetMap();
-            player->SetMap(sMapMgr->CreateMap(mapId, player));
-            player->SaveToDB(false, false);
-        }
-};
-
 void AddSpawnPointsScripts()
 {
-    new SpawnPointData();
-    new SetSpawnPoint();
+    new SpawnPointsPlayer();
+    new SpawnPointWorld();
 }
