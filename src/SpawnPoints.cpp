@@ -70,7 +70,7 @@ class SpawnPointWorld : public WorldScript
                     i++;
                 } while (result->NextRow());
 
-                LOG_INFO("server.loading", ">> Loaded %i spawn points", i);
+                LOG_INFO("server.loading", ">> Loaded {} spawn points", i);
             }
         }
 };
