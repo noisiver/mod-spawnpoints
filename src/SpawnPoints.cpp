@@ -58,14 +58,14 @@ class SpawnPointWorld : public WorldScript
                 do
                 {
                     Field* fields = result->Fetch();
-                    uint32 TeamId = fields[0].GetUInt32();
+                    uint32 TeamId = fields[0].Get<uint32>();
 
                     spawnPoints.push_back(SpawnPoints());
-                    spawnPoints[TeamId].MapId = fields[1].GetUInt32();
-                    spawnPoints[TeamId].X     = fields[2].GetFloat();
-                    spawnPoints[TeamId].Y     = fields[3].GetFloat();
-                    spawnPoints[TeamId].Z     = fields[4].GetFloat();
-                    spawnPoints[TeamId].O     = fields[5].GetFloat();
+                    spawnPoints[TeamId].MapId = fields[1].Get<uint32>();
+                    spawnPoints[TeamId].X     = fields[2].Get<float>();
+                    spawnPoints[TeamId].Y     = fields[3].Get<float>();
+                    spawnPoints[TeamId].Z     = fields[4].Get<float>();
+                    spawnPoints[TeamId].O     = fields[5].Get<float>();
 
                     i++;
                 } while (result->NextRow());
